@@ -1,6 +1,20 @@
 <html>
 <head>
 	<title>WebGL Viewer for Single Molecule Localization Microscopy Point Clouds</title>
+	<script src="https://lib.imjoy.io/imjoy-loader.js"></script>
+	<script>
+		// check if it's inside an iframe
+		if(window.self !== window.top){
+			loadImJoyRPC().then(async (imjoyRPC)=>{
+				const api = await imjoyRPC.setupRPC({name: 'My Awesome App'});
+				function setup(){
+					api.alert('ImJoy RPC initialized.')
+				}
+				// Importantly, you need to call `api.export(...)` in order to expose the api for your web application
+				api.export({'setup': setup, 'my_api_func': my_api_func});
+			})
+		}
+	</script>
 	<script type="text/javascript">
 		/**
 		 * Copyright 2016-2017 Felix Woitzel. All Rights Reserved.
